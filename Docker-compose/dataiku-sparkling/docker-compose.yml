@@ -1,0 +1,55 @@
+version: '2' 
+services:
+
+  spark-master:
+    image: spark-master:2.4
+    container_name: spark-master
+    hostname: spark-master
+    ports:
+      - 8080:8080
+      - 7077:7077
+    stdin_open: true
+    tty: true
+
+  spark-worker:
+    image: spark-worker:2.4
+    depends_on:
+      - spark-master
+    environment:
+      - SPARK_MASTER=spark://spark-master:7077
+    stdin_open: true
+    tty: true
+
+
+  zeppelin-notebook:
+    image: zeppelin
+    container_name: zeppelin-notebook
+    depends_on:
+      - spark-master
+    ports:
+      - 9999:8080
+
+  sparkling-water:
+    image: sparkling-water:2.4
+    container_name: sparkling-water
+    depends_on:
+      - spark-master
+    ports:
+      - 54321:54321
+    environment:
+      - MASTER=spark://spark-master:7077
+
+  dataiku:
+    image: dataiku:enterprise
+    container_name: dataiku
+    depends_on:
+      - spark-master
+    ports:
+      - 11000:11000
+    environment:
+      - MASTER=spark://spark-master:7077
+    stdin_open: true
+    tty: true
+
+
+

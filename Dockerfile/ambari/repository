@@ -1,0 +1,42 @@
+HDP Base URL
+http://172.17.0.1/HDP/ubuntu16/2.6.4.0-91
+
+HDP-UTILS Base URL
+http://172.17.0.1/HDP-UTILS
+
+http://172.17.0.1/HDP-GPL/ubuntu16/2.6.4.0-91
+
+
+
+
+
+solve hive problem:
+
+
+
+# go to sql server host and 
+nano /etc/mysql/mysql.conf.d/mysqld.cnf 
+
+# change bind-address from 127.0.0.1 to 0.0.0.0
+
+# Restart mysqld 
+# /etc/init.d/mysql restart
+service mysql restart
+
+
+
+
+
+# hive test
+
+    sudo su - hdfs
+    hdfs dfs -mkdir /user/admin
+    hdfs dfs -chown root:hdfs /user/admin
+
+
+
+su - hdfs
+
+hdfs dfs -chown -R root:hdfs /user
+
+exit

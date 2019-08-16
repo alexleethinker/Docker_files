@@ -1,0 +1,78 @@
+version: '2' 
+services:
+
+  zoo1:
+    image: zookeeper
+    restart: always
+    hostname: zoo1
+    ports:
+      - 2181:2181
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
+
+  zoo2:
+    image: zookeeper
+    restart: always
+    hostname: zoo2
+    ports:
+      - 2182:2181
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=0.0.0.0:2888:3888 server.3=zoo3:2888:3888
+
+  zoo3:
+    image: zookeeper
+    restart: always
+    hostname: zoo3
+    ports:
+      - 2183:2181
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=0.0.0.0:2888:3888
+  
+  spark-master1:
+    image: spark-master:2.1
+    container_name: spark-master1
+    hostname: spark-master1
+    depends_on:
+      - zoo1
+      - zoo2
+      - zoo3
+    ports:
+      - 8080:8080
+    environment:
+      - SPARK_MASTER_OPTS="-Dspark.deploy.recoveryMode=ZOOKEEPER  -Dspark.deploy.zookeeper.url=zoo1:2181,zoo2:2181,zoo2:2181"
+    stdin_open: true
+    tty: true
+
+  spark-master2:
+    image: spark-master:2.1
+    container_name: spark-master2
+    hostname: spark-master2
+    ports:
+      - 8081:8080
+    environment:
+      - SPARK_MASTER_OPTS="-Dspark.deploy.recoveryMode=ZOOKEEPER  -Dspark.deploy.zookeeper.url=zoo1:2181,zoo2:2181,zoo2:2181"
+    depends_on:
+      - zoo1
+      - zoo2
+      - zoo3
+    stdin_open: true
+    tty: true
+
+
+  spark-worker:
+    image: spark-worker:2.1
+    depends_on:
+      - spark-master1
+      - spark-master2
+    environment:
+      - SPARK_MASTER=spark://spark-master1:7077,spark-master2:7077
+      - SPARK_DAEMON_JAVA_OPTS="-Dspark.deploy.recoveryMode=ZOOKEEPER  -Dspark.deploy.zookeeper.url=zoo1:2181,zoo2:2181,zoo2:2181"
+    stdin_open: true
+    tty: true
+
+
+# zookeeper need to create /spark to enable election
+

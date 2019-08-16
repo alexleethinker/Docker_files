@@ -1,0 +1,23 @@
+{
+  "content": {
+    "licensee": {
+      "email": "310876131@qq.com",
+      "company": "",
+      "name": "alex lee"
+    },
+    "dssMode": "ON_PREMISE_DISCONNECTED",
+    "instanceId": "g9f565a0",
+    "licenseKind": "COMMUNITY",
+    "licenseId": "gn97xiYg3sgnx804",
+    "properties": {
+      "features.engines.spark": "true",
+      "features.engines.sparkMLLib": "true",
+      "community.eeTrialUntil": "20180621",
+      "intercomAppId": "cebm4kxa"
+    },
+    "communityEdition": "true"
+  },
+  "r1Sig": "tJB/OJkdAPrqpgpld2jTxhd2MSep4EUtAxudGQzwSGiZiciNKbYZceAVORfCvPGM0Vqv2loibJDduXPo6oSWDAseWY9YBO3tEqL6F9eOAVvf7MQuEthpQQfc/MfDAZTHvZC3haI9rw7qiI5CgPKo0v7DpGzv39LxE7FQXB4TzPU\u003d",
+  "r1Pub": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDqyiqepcWLOnxAX+nuRvTeapLJ3sAWJ0DCtJjrraYnrTSwbVZJ5Xu5ZPukb99mxq45z3jux6ljlmdMlo0/hRwKLHEIjzK7B+XGSJYBcSfcUEe8ENcHV7ZW5PSpxYWWq2h+aA/xpsA3vvM1DWxdgSUErnY2kaZe2X2nStQHlpwBmwIDAQAB",
+  "r1PubSig": "OG7+Ke0UY+poOjCVj43krxo5uqHZ/Itrh27rIwlRhIzBsWvxjTGThDDaaNhwxTwDCjenX5rdCkYqrauD0ztE2Y7iBDSgO7PkzgVW+KFdRrYM+zsEr7nsGfhgdDVQnCUetD4kOxbaqCl7LDo0DXaT+bZGdiNjyiq3ByslIEA5QQ8\u003d"
+}
